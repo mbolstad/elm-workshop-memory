@@ -1,6 +1,8 @@
-# Elm
+---
+marp: true
+---
 
-![fit, right](./images/elm-logo.png)
+# Elm
  
 ### *A delightful language*
 ### *for reliable webapps*
@@ -8,20 +10,14 @@
 
 ---
 
-### Elm workshop Dag 1
-
-
-
----
-
 # Plan for dagen
 
-* Snakke om syntax og semantikk
-* Lage spill
-* Snakke syntax, semantikk og arkitektur
-* Fortsette med å lage spill
+* Intro/presentasjon til Elm
+* Lunsj
+* Lage spill workshop
 
-![fit, right](memory.png)
+
+
 
 ---
 
@@ -34,47 +30,47 @@
 
 # Du kan ikke bruke `null`
 
-^Heller ikke undefined. Nevn TS og Kotlin 
+<!-- Heller ikke undefined. Nevn TS og Kotlin  -->
 
 ---
 
 # Du kan ikke bruke exceptions
 
-^Exceptions er en komplisert kontrollflyt og Elm har bedre måter å håndtere feil.
+<!-- Exceptions er en komplisert kontrollflyt og Elm har bedre måter å håndtere feil. -->
 
 ---
 
 # Du kan ikke endre/mutere ting
 
-^Når noe skal oppdateres lager man en kopi av objektet med noen nye verdier.
+<!-- Når noe skal oppdateres lager man en kopi av objektet med noen nye verdier. -->
 
-^I andre språk kan du for eksempel oppdatere objekt-properties direkte.
+<!-- I andre språk kan du for eksempel oppdatere objekt-properties direkte. -->
 
 ---
 
 # Du kan ikke gjøre nettverkskall hvor og når du vil
 
-^Det er et sterkt skille mellom kode som kan/ikke kan gjøre sideeffekte. Dette komm vi tilbake til når vi skal snakke om Elm-arkitekturen.
+<!-- Det er et sterkt skille mellom kode som kan/ikke kan gjøre sideeffekte. Dette komm vi tilbake til når vi skal snakke om Elm-arkitekturen. -->
 
 ---
 
 ## Mye lettere å forstå hva koden faktisk gjør
 
-^Siden resultatet av en funksjon kun er basert på input til funksjonen er det lett å forstå hva som skjer. Av samme grunn er det enklere å skrive tester.
+<!-- Siden resultatet av en funksjon kun er basert på input til funksjonen er det lett å forstå hva som skjer. Av samme grunn er det enklere å skrive tester. -->
 
 ---
 
 # Typesikkerhet og rubusthet
 
-^Elm har et sterkere typesystem enn mange andre språk. For eksempel ingen støtte for casting, som man kan i TS & co.
+<!-- Elm har et sterkere typesystem enn mange andre språk. For eksempel ingen støtte for casting, som man kan i TS & co. -->
 
-^ "75 % av frontend-bugs i Jira er feil som ikke kan skje med Elm" (Aksel)
+<!--  "75 % av frontend-bugs i Jira er feil som ikke kan skje med Elm" (Aksel) -->
 
 ---
 
 # Stabilt språk
 
-^ Unngå "js-fatigue". Ting skjer i miljøet, men selve språket er veldig stabilt (slipper å holde seg oppdatert på syntax).
+<!--  Unngå "js-fatigue". Ting skjer i miljøet, men selve språket er veldig stabilt (slipper å holde seg oppdatert på syntax). -->
 
 ---
 
@@ -86,30 +82,24 @@
 
 Innebygget time traveling debugger
 
-^(vis demo i UTV/kjøretøy)
-
+<!-- (vis demo i UTV/kjøretøy) -->
 ---
-
-![80%](./elm-guarantees.png)
-
----
-
 # Syntax
 
 ---
 
 # Verdier
-[.column]
+
 ```elm
 -- Elm
 volum = 11
 ```
-[.column]
+
 ```js
 // JavaScript:
 const volum = 11;
 ```
-^Alle verdier er immutable. Ikke noe behov for et keyword foran (const, var). Alle variabler har samme scoping-regler til forksjell fra JS.
+<!-- Alle verdier er immutable. Ikke noe behov for et keyword foran (const, var). Alle variabler har samme scoping-regler til forksjell fra JS. -->
 
 ---
 
@@ -129,7 +119,7 @@ detErHelg = False
 
 # Funksjoner
 
-[.column]
+
 ```elm
 -- Elm:
 increment x =
@@ -138,7 +128,7 @@ increment x =
 four = increment 3
 ```
 
-[.column]
+
 ```javascript
 // JavaScript:
 function increment(x) {
@@ -147,14 +137,12 @@ function increment(x) {
     
 const four = increment(3);
 ```
-^ Her ser vi at vi binder resultatet av å kalle increment med argumentet 3, til navnet four
+<!--  Her ser vi at vi binder resultatet av å kalle increment med argumentet 3, til navnet four -->
 
-^ Heller ikke når man kaller funksjoner i Elm behøver man parenteser rundt argumenter. Man bare skriver navnet på funksjonen så argumentene
+<!--  Heller ikke når man kaller funksjoner i Elm behøver man parenteser rundt argumenter. Man bare skriver navnet på funksjonen så argumentene -->
 
 ---
 # Funksjoner & typeinferens
-
-[.column]
 ```elm
 -- Elm:
 increment x =
@@ -163,7 +151,6 @@ increment x =
 five = increment (increment 3)
 ```
 
-[.column]
 ```javascript
 // JavaScript:
 function increment(x) {
@@ -173,23 +160,23 @@ function increment(x) {
 const five = increment(increment(3));
 ```
 
-^ Hvis vi derimot skal sende med resultatet av et funksjonskall som argumentet til en funksjon, da trenger vi parenteser.
+<!--  Hvis vi derimot skal sende med resultatet av et funksjonskall som argumentet til en funksjon, da trenger vi parenteser. -->
 
-^ For hvis vi bare hadde skrevet increment increment 3, uten parenteser, så hadde vi fått denne feilmeldingen.
+<!--  For hvis vi bare hadde skrevet increment increment 3, uten parenteser, så hadde vi fått denne feilmeldingen. -->
 
 --- 
 
 ![100%](./images/feilmelding-2-elm.png)
 
-^ *Les hele høyt*
+<!--  *Les hele høyt* -->
 
-^ Altså må vi putte på parenteser for å gjøre det tydelig hva som er argumentene til hvilke funksjoner.
+<!--  Altså må vi putte på parenteser for å gjøre det tydelig hva som er argumentene til hvilke funksjoner. -->
 
 ---
 
 # Funksjoner & typeinferens
 
-[.column]
+
 ```elm
 
 -- Elm:
@@ -199,7 +186,7 @@ increment x =
 five = increment (increment 3)
 ```
 
-[.column]
+
 ```javascript
 // JavaScript:
 function increment(x) {
@@ -209,34 +196,34 @@ function increment(x) {
 const five  = increment(increment(3));
 ```
 
-^ Så i dette tilfellet er det sånn her vi må kalle funksjonene
+<!--  Så i dette tilfellet er det sånn her vi må kalle funksjonene -->
 
-^ increment (increment 3)
+<!--  increment (increment 3) -->
 
 ---
 
 ![100%](./images/feilmelding-1-elm.png)
 
 
-^ Og når vi snakker om feilmeldinger, så så dere kanskje at Elm hadde ganske fine feilmeldinger. Kompilatoren foreslo til og med at vi kanskje måtte legge på parenteser.
+<!--  Og når vi snakker om feilmeldinger, så så dere kanskje at Elm hadde ganske fine feilmeldinger. Kompilatoren foreslo til og med at vi kanskje måtte legge på parenteser. -->
 
-^ Og feilmeldingene er en av de tingene som gjør Elm så behagelig å jobbe i.
+<!--  Og feilmeldingene er en av de tingene som gjør Elm så behagelig å jobbe i. -->
 
-^ Jeg vil påstå at Elm er i en klasse for seg selv når det kommer til feilmeldinger. Bare se på det her!
+<!--  Jeg vil påstå at Elm er i en klasse for seg selv når det kommer til feilmeldinger. Bare se på det her! -->
 
-^ Her prøver vi å kalle increment med en string, og så sier den *les hele*
+<!--  Her prøver vi å kalle increment med en string, og så sier den *les hele* -->
 
-^ ***
+<!--  *** -->
 
-^ !Kompilatoren har altså et forslag til en funksjon vi kan bruke for å løse problemet vårt!
+<!--  !Kompilatoren har altså et forslag til en funksjon vi kan bruke for å løse problemet vårt! -->
 
-^ Feilmeldingene i Elm er altså bare så bra, noen av dem har til og med lenker til artikler man kan lese for å forstå feilen man har fått.
+<!--  Feilmeldingene i Elm er altså bare så bra, noen av dem har til og med lenker til artikler man kan lese for å forstå feilen man har fått. -->
 
 ---
 
 # Funksjoner & typeinferens
 
-[.column]
+
 ```elm
 -- Elm:
 increment x =
@@ -245,7 +232,7 @@ increment x =
 five = increment (increment 3)
 ```
 
-[.column]
+
 ```javascript
 // JavaScript:
 function increment(x) {
@@ -255,19 +242,19 @@ function increment(x) {
 const five = increment(increment(3));
 ```
 
-^ Som vi så nå, så har Elm en hjelpsom kompilator, som sørger for at vi ikke har noen typefeil, eller andre feil, i programmene våre
+<!--  Som vi så nå, så har Elm en hjelpsom kompilator, som sørger for at vi ikke har noen typefeil, eller andre feil, i programmene våre -->
 
-^ Og som nevnt tidligere så er Elm et statisk typet språk. Men selv om det har et typesystem, så behøver man ikke si hvilken type alle verdier og funksjoner har, sånn som i f.eks. Java.
+<!--  Og som nevnt tidligere så er Elm et statisk typet språk. Men selv om det har et typesystem, så behøver man ikke si hvilken type alle verdier og funksjoner har, sånn som i f.eks. Java. -->
 
-^ Så her forstår elm at increment tar et tall som argument og returnerer et tall, på grunn av pluss-operatoren.
+<!--  Så her forstår elm at increment tar et tall som argument og returnerer et tall, på grunn av pluss-operatoren. -->
 
-^ Den skjønner også at five er et tall pga returverdien til increment
+<!--  Den skjønner også at five er et tall pga returverdien til increment -->
 
 ---
 
 # Lambda
 
-[.column]
+
 ```elm
 -- Elm
 increment x =
@@ -276,7 +263,7 @@ increment x =
 increment = \x -> x + 1
 ```
 
-[.column]
+
 ```js
 // JavaScript:
 function increment(x) {
@@ -321,13 +308,13 @@ five = increment (increment 3)
 ```
 
 
-^ Men som oftest så har vi lyst til å legge på typesignaturer, og det gjør vi på denne måten.
+<!--  Men som oftest så har vi lyst til å legge på typesignaturer, og det gjør vi på denne måten. -->
 
-^ Kolon betyr "har typen", så øverst står det at increment har typen int-til-int, altså er det en funksjon som tar inn en int og returnerer en int
+<!--  Kolon betyr "har typen", så øverst står det at increment har typen int-til-int, altså er det en funksjon som tar inn en int og returnerer en int -->
 
-^ five derimot er bare en int. Det er ikke noen piler fordi five ikke er noen funksjon
+<!--  five derimot er bare en int. Det er ikke noen piler fordi five ikke er noen funksjon -->
 
-^ En ting som er fint med typesignaturene til elm, er at de fungerer omtrent som dokumentasjon, i tillegg til å hjelpe kompilatoren. For hvis du ser at en funksjon heter f.eks. `increment` og tar en int og returnerer en int, så behøver du egentlig ikke se på implementasjonen for å skjønne hva den gjør. Og det er sant for veldig mange funksjoner i elm.
+<!--  En ting som er fint med typesignaturene til elm, er at de fungerer omtrent som dokumentasjon, i tillegg til å hjelpe kompilatoren. For hvis du ser at en funksjon heter f.eks. `increment` og tar en int og returnerer en int, så behøver du egentlig ikke se på implementasjonen for å skjønne hva den gjør. Og det er sant for veldig mange funksjoner i elm. -->
 
 ---
 
@@ -366,7 +353,7 @@ person = ( "Robin", 30, False )
 
 # Records
 
-[.column]
+
 ```elm
 -- Elm:
 kunde = 
@@ -375,7 +362,7 @@ kunde =
     }
 ```
 
-[.column]
+
 ```javascript
 // JavaScript:
 const kunde = {
@@ -384,12 +371,12 @@ const kunde = {
 };
 ```
 
-^ For mer komplekse datatyper har elm bl.a. records. En record er litt som et objekt i javascript eller en dataklasse i kotlin, det er bare en samling verdier. Her lager vi en record `kunde`, som har to felter: `navn` med verdi `Aksel` og `alder` med verdi `31`
+<!--  For mer komplekse datatyper har elm bl.a. records. En record er litt som et objekt i javascript eller en dataklasse i kotlin, det er bare en samling verdier. Her lager vi en record `kunde`, som har to felter: `navn` med verdi `Aksel` og `alder` med verdi `31` -->
 
 ---
 
 # Records
-[.column]
+
 ```elm
 -- Elm:
 kunde : { navn : String, alder : Int }
@@ -398,7 +385,7 @@ kunde =
     , alder = 31
     }
 ```
-[.column]
+
 ```javascript
 // JavaScript:
 const kunde = {
@@ -407,18 +394,18 @@ const kunde = {
 };
 ```
 
-^ Her ser vi den samme koden med typeannotasjoner. `kunde` har altså en typesignatur på som sier at dette er en record, der `navn` er en streng, og `alder` er en int.
+<!--  Her ser vi den samme koden med typeannotasjoner. `kunde` har altså en typesignatur på som sier at dette er en record, der `navn` er en streng, og `alder` er en int. -->
 
-^ Og som nevnt tidligere så har ikke Elm verken null eller undefined, så når vi sier at noe er f.eks. en streng, så _er det_ en streng.
+<!--  Og som nevnt tidligere så har ikke Elm verken null eller undefined, så når vi sier at noe er f.eks. en streng, så _er det_ en streng. -->
 
-^ Ikke en streng nesten alltid, men vi kan ikke være helt sikre. Nei, det er _alltid_ en streng.
+<!--  Ikke en streng nesten alltid, men vi kan ikke være helt sikre. Nei, det er _alltid_ en streng. -->
 
-^ Og dette gjelder overalt i Elm, det er ikke spesifikt for records
+<!--  Og dette gjelder overalt i Elm, det er ikke spesifikt for records -->
 
 ---
 
 # Records
-[.column]
+
 ```elm
 -- Elm:
 kunde : { navn : String, alder : Int }
@@ -427,7 +414,7 @@ kunde =
     , alder = 31
     }
 ```
-[.column]
+
 ```javascript
 // JavaScript:
 const kunde = {
@@ -436,15 +423,15 @@ const kunde = {
 };
 ```
 
-^ Og forresten, så ser kanskje noen av dere på den formatteringen av koden her og tenker "eeeeh, det var rart", og det er litt rart ja.
+<!--  Og forresten, så ser kanskje noen av dere på den formatteringen av koden her og tenker "eeeeh, det var rart", og det er litt rart ja. -->
 
-^ Det er ikke så vanlig i andre språk å putte komma på starten av linja i stedet for slutten. Men dette er sånn kode formatteres på i Elm, men den formatteringen er ikke noe man behøver å gjøre manuelt.
+<!--  Det er ikke så vanlig i andre språk å putte komma på starten av linja i stedet for slutten. Men dette er sånn kode formatteres på i Elm, men den formatteringen er ikke noe man behøver å gjøre manuelt. -->
 
-^ Så å si alle Elm-prosjekter som finnes bruker et verktøy som heter elm-format, som formatterer koden hver gang man lagrer en fil.
+<!--  Så å si alle Elm-prosjekter som finnes bruker et verktøy som heter elm-format, som formatterer koden hver gang man lagrer en fil. -->
 
-^ Og selv om formatet er litt rart, og ganske uvant, så blir man fort vant til det. Og det er i tillegg utrolig digg å slippe å ha de diskusjonene med teamet om hvordan man skal formattere koden, for all Elm-kode formatteres helt likt.
+<!--  Og selv om formatet er litt rart, og ganske uvant, så blir man fort vant til det. Og det er i tillegg utrolig digg å slippe å ha de diskusjonene med teamet om hvordan man skal formattere koden, for all Elm-kode formatteres helt likt. -->
 
-^ I tillegg til at du kan se en hvilken som helst kodebase skrevet i Elm og føle deg som hjemme med en gang, som er veldig behagelig.
+<!--  I tillegg til at du kan se en hvilken som helst kodebase skrevet i Elm og føle deg som hjemme med en gang, som er veldig behagelig. -->
 
 ---
 
@@ -463,9 +450,9 @@ kunde =
     }   
 ```
 
-^ Fordi vi vil at typesystemet skal hjelpe oss, og ikke være i veien, så har vi noe som heter typealias, som lar oss definere navn på typer. Det gjør vi sånn at vi kan definere typen vår én gang, og så slippe å skrive den flere ganger.
+<!--  Fordi vi vil at typesystemet skal hjelpe oss, og ikke være i veien, så har vi noe som heter typealias, som lar oss definere navn på typer. Det gjør vi sånn at vi kan definere typen vår én gang, og så slippe å skrive den flere ganger. -->
 
-^ Så her definerer vi typealiaset `Kunde` og sier at det er det samme som et record med to felter, `navn` som er en streng, `alder` som er en int.
+<!--  Så her definerer vi typealiaset `Kunde` og sier at det er det samme som et record med to felter, `navn` som er en streng, `alder` som er en int. -->
 
 #### **Lar oss definere nye typer**
 
@@ -502,9 +489,9 @@ kunde =
     }   
 ```
 
-^ En ting som er fint med å bruke typealias er at vi kan endre typealiaset et sted, og så sier kompilator fra alle steder vi må oppdatere programmet vårt.
+<!--  En ting som er fint med å bruke typealias er at vi kan endre typealiaset et sted, og så sier kompilator fra alle steder vi må oppdatere programmet vårt. -->
 
-^ Her har vi lagt til et felt `avtale` i recorden, som er en streng, for å vise at dette er en studentkunde.
+<!--  Her har vi lagt til et felt `avtale` i recorden, som er en streng, for å vise at dette er en studentkunde. -->
 
 ---
 
@@ -527,7 +514,7 @@ kunde =
     }
 ```
 
-^ Videre så kan vi se for oss at vi legger til et felt `studentRabatt` i typealiaset vårt
+<!--  Videre så kan vi se for oss at vi legger til et felt `studentRabatt` i typealiaset vårt -->
 
 ---
 
@@ -548,13 +535,13 @@ kunde =
     , alder = 31
     , avtale = "Bedrift"
     , studentRabatt = 0
-    , bedriftsnavn = "Bekk Consulting"
+    , bedriftsnavn = "Statens Vegvesen"
     }
 ```
 
-^ Men hva nå da? Nå har vi laget en bedriftskunde, som vi ser på `avtale`-feltet, og vi har lagt til et felt i typealiaset som heter `bedriftsnavn`
+<!--  Men hva nå da? Nå har vi laget en bedriftskunde, som vi ser på `avtale`-feltet, og vi har lagt til et felt i typealiaset som heter `bedriftsnavn` -->
 
-^ Men vi har jo fortsatt studentRabatten, selv om det ikke er noen studentkunde, fordi studentRabatt er definert i typealiaset vårt.
+<!--  Men vi har jo fortsatt studentRabatten, selv om det ikke er noen studentkunde, fordi studentRabatt er definert i typealiaset vårt. -->
 
 ---
 # Tre problemer:
@@ -570,14 +557,14 @@ _3. Ikke noe hjelp fra kompilatoren_
   , alder = 31
   , avtale = "Bedrift"
   , studentRabatt = 0
-  , bedriftsnavn = "Bekk Consulting"
+  , bedriftsnavn = "Statens Vegvesen"
   }
 ```
 
 
-^ 1, 2, 3
+<!--  1, 2, 3 -->
 
-^ ... i JavaScript så ville vi kanskje godtatt at det er sånn man modellerer objekter, men ikke i elm!
+<!--  ... i JavaScript så ville vi kanskje godtatt at det er sånn man modellerer objekter, men ikke i elm! -->
 
 ---
 
@@ -590,7 +577,7 @@ type Kundeavtale
     | Privat
 ```
 
-^ Så var det jo sånn at vi hadde en studentrabatt og et bedriftsnavn på type aliaset vårt. Som gjorde at vi måtte sette dummyverdier. Men i elm, kan Custom types ha argumenter. Så i stedet for å ha et eget felt for studentrabatt, sender vi en int med student-typen. Og en streng til bedriftavtalen. Privatkunder har ingen ekstra informasjon, så den trenger ikke noen argumenter.
+<!--  Så var det jo sånn at vi hadde en studentrabatt og et bedriftsnavn på type aliaset vårt. Som gjorde at vi måtte sette dummyverdier. Men i elm, kan Custom types ha argumenter. Så i stedet for å ha et eget felt for studentrabatt, sender vi en int med student-typen. Og en streng til bedriftavtalen. Privatkunder har ingen ekstra informasjon, så den trenger ikke noen argumenter. -->
 
 ## Making Impossible States Impossible! 👏
 
@@ -607,13 +594,13 @@ kunde : Kunde
 kunde =
     { navn = "Aksel"
     , alder = 31
-    , avtale = Bedrift "Bekk Consulting"
+    , avtale = Bedrift "Statens Vegvesen"
     }   
 ```
 
-^
+<!-- 
 Tilbake til eksempelet med kunde-typen, her har vi nå erstattet avtale-strengen med vår nye custom type
-Og vi har ikke lenger unødvendige og forvirrende felter, bare den informasjonen vi faktisk trenger i dette tilfellet.
+Og vi har ikke lenger unødvendige og forvirrende felter, bare den informasjonen vi faktisk trenger i dette tilfellet.-->
 
 ---
 
@@ -637,11 +624,10 @@ getRabatt avtale =
 #### **Glemt en branch? kompilatoren sier fra!**
 
 
-^
-Når vi ønsker å håndtere de ulike tilfellene vi har definert at en custom type kan ha, bruker vi det som heter pattern matching. 
-Likner litt på en switch, som man finner i blant annet java, c# og javascript, men hjelper oss mye mer. For her må vi håndtere alle tilfeller, det holder ikke å bare plukke ut de vi tror vi trenger å håndtere.
+<!-- Når vi ønsker å håndtere de ulike tilfellene vi har definert at en custom type kan ha, bruker vi det som heter pattern matching. 
+Likner litt på en switch, som man finner i blant annet java, c# og javascript, men hjelper oss mye mer. For her må vi håndtere alle tilfeller, det holder ikke å bare plukke ut de vi tror vi trenger å håndtere.-->
 
-^Virker kanskje litt voldsomt, men det å måtte håndtere alle brancher, og få hjelp fra kompilatoren, fører til at vi skriver kode som faktisk fungerer, også etter refaktoreringer og utvidelser.
+<!-- Virker kanskje litt voldsomt, men det å måtte håndtere alle brancher, og få hjelp fra kompilatoren, fører til at vi skriver kode som faktisk fungerer, også etter refaktoreringer og utvidelser. -->
 
 ---
 
@@ -672,12 +658,11 @@ getRabatt avtale =
 </div>
 ```
 
-^
-Som jeg nevnte tidligere, er elm en fullstendig løsning for webapplikasjoner. Og elm har dermed sin egen måte å skrive html på.
+<!-- Som jeg nevnte tidligere, er elm en fullstendig løsning for webapplikasjoner. Og elm har dermed sin egen måte å skrive html på. -->
 
-^ Det er kanskje noen av dere som ikke har sett html før. Men her har vi altså et div-element med to underelementer: et bilde og en header.
+<!--  Det er kanskje noen av dere som ikke har sett html før. Men her har vi altså et div-element med to underelementer: et bilde og en header. -->
 
-^ + forklare barn, attributter
+<!--  + forklare barn, attributter -->
 
 ---
 
@@ -698,8 +683,8 @@ div []
     ]
 ```
 
-^ 
-Overordnet, er strukturen veldig lik den vi har i html, med attributter og barn. Men html-elementer er nå egne funksjoner i elm. Det vil sei at div er en funksjon, img er en funksjon, h1 (header) er en funksjon osv. Og hver av html-elementene tar inn to argumenter: en liste med attributter, der vi typisk setter css-klasser og events. Og en liste med barn.
+<!--   
+Overordnet, er strukturen veldig lik den vi har i html, med attributter og barn. Men html-elementer er nå egne funksjoner i elm. Det vil sei at div er en funksjon, img er en funksjon, h1 (header) er en funksjon osv. Og hver av html-elementene tar inn to argumenter: en liste med attributter, der vi typisk setter css-klasser og events. Og en liste med barn. -->
 
 ---
 
@@ -713,7 +698,7 @@ view =
     , h1 [] [ text "Min elm-app!" ]
     ]
 ```
-^Html-typen tar egentlig inn et ekstra type-parameter (a). Dette er meldingstypen vi forventer å få når brukeren interagerer med viewet.
+<!-- Html-typen tar egentlig inn et ekstra type-parameter (a). Dette er meldingstypen vi forventer å få når brukeren interagerer med viewet. -->
 
 ---
 
@@ -738,7 +723,7 @@ view =
 https://gauteab.github.io/elm-workshop-memory
 ```
 
-^Si fra hvis du blir ferdig med nivå 3.
+<!-- Si fra hvis du blir ferdig med nivå 3. -->
 
 
 ---
@@ -759,15 +744,15 @@ https://gauteab.github.io/elm-workshop-memory
 * Rene funksjoner (ingen side-effekter)
 
 
-^ Rene funksjoner: ingen side-effekter, kalles kun for returverdien, kall på funksjon med samme argumenter gir samme resultat hver gang (Man behøver ikke tenke på timing)
+<!--  Rene funksjoner: ingen side-effekter, kalles kun for returverdien, kall på funksjon med samme argumenter gir samme resultat hver gang (Man behøver ikke tenke på timing) -->
 
-^ (Høyereordens funksjoner er funksjoner som kan ta inn andre funksjoner som parametre, eller returnere funksjoner.)
+<!--  (Høyereordens funksjoner er funksjoner som kan ta inn andre funksjoner som parametre, eller returnere funksjoner.) -->
 
-^ Kan programmere funksjonelt i andre programmeringsspråk også, som oftest bare med de øverste to punktene
+<!--  Kan programmere funksjonelt i andre programmeringsspråk også, som oftest bare med de øverste to punktene -->
 
-^ Hva er side-effekter? Alt som endrer på omverden, eller avhenger av omverden. Nettverkskall, endre globale variabler, skrive ut tekst i konsollen
+<!--  Hva er side-effekter? Alt som endrer på omverden, eller avhenger av omverden. Nettverkskall, endre globale variabler, skrive ut tekst i konsollen -->
 
-^ Utrolig dust (at man ikke skal ha side-effekter?), side-effekter er hele poenget: få data fra server, skrive til database osv. Man kan fortsatt gjøre det, men ikke i funksjoner. Kommer tilbake til det når vi skal snakke om Elm-arkitekturen
+<!--  Utrolig dust (at man ikke skal ha side-effekter?), side-effekter er hele poenget: få data fra server, skrive til database osv. Man kan fortsatt gjøre det, men ikke i funksjoner. Kommer tilbake til det når vi skal snakke om Elm-arkitekturen -->
 
 
 ---
@@ -781,7 +766,7 @@ concat one two =
   one ++ two
 ```
 
-^En vanlig teknikk i funksjonell programmering er currying (fra Haskell). Det går ut på å transformere en funksjon til en annen funksjon. Her har vi laget en funksjon som tar inn to argumenter av typen String, slår disse sammen og returnerer en ny String.
+<!-- En vanlig teknikk i funksjonell programmering er currying (fra Haskell). Det går ut på å transformere en funksjon til en annen funksjon. Her har vi laget en funksjon som tar inn to argumenter av typen String, slår disse sammen og returnerer en ny String. -->
 
 ---
 
@@ -797,7 +782,7 @@ greeting =
   concat "Hello "
 
 ```
-^Hvis vi bruker denne funksjonen, men kun oppgir ett argument ("partially applied"), får vi naturlig nok ingen ny String, men i stedet får vi en helt ny funksjon som forventer en String, og returnerer en String. 
+<!-- Hvis vi bruker denne funksjonen, men kun oppgir ett argument ("partially applied"), får vi naturlig nok ingen ny String, men i stedet får vi en helt ny funksjon som forventer en String, og returnerer en String.  -->
 
 ---
 
@@ -814,7 +799,7 @@ greeting =
   concat "Hello "
 
 ```
-^Slenger på type-signatur for å tydeliggjøre hva vi får.
+<!-- Slenger på type-signatur for å tydeliggjøre hva vi får. -->
 
 ---
 
@@ -831,7 +816,7 @@ greeting name =
   concat "Hello " name
 
 ```
-^Kunne også vært skrevet sånn, men det trenger vi ikke.
+<!-- Kunne også vært skrevet sånn, men det trenger vi ikke. -->
 
 ---
 
@@ -849,7 +834,7 @@ greeting =
 greeting "World" == "Hello World"
 ```
 
-^På denne måten kan vi definere nye funksjoner som er resultat av andre funksjoner med forhåndsdefinerte verdier.
+<!-- På denne måten kan vi definere nye funksjoner som er resultat av andre funksjoner med forhåndsdefinerte verdier. -->
 
 ---
 
@@ -870,7 +855,7 @@ const greeting = greeting("Hello ");
 greeting("World") == "Hello World";
 greeting("Kitty") == "Hello Kitty";
 ```
-^Eksempel på currying i JS. Den kompilerte koden ser omtrent sånn ut (før optimizations)
+<!-- Eksempel på currying i JS. Den kompilerte koden ser omtrent sånn ut (før optimizations) -->
 
 ---
 
@@ -908,7 +893,7 @@ myString =
 --> "HELLOHELLO"
 ```
 
-^En annen teknikk som brukes masse i funksjonell programmering er Pipes. Si vi skal regne ut pris basert på hva slags kantinerabatt man får. utregnKantineRabatt gir oss et prosenttall. 
+<!-- En annen teknikk som brukes masse i funksjonell programmering er Pipes. Si vi skal regne ut pris basert på hva slags kantinerabatt man får. utregnKantineRabatt gir oss et prosenttall.  -->
 
 ---
 
@@ -929,9 +914,9 @@ sirkelAreal r =
 ---
 # _**Elm Architecture**_
 
-^  Det siste vi skal snakke om før vi skal live-kode er The Elm Architecture.
+<!--   Det siste vi skal snakke om før vi skal live-kode er The Elm Architecture. -->
 
-^ Elm-arkitekturen er måten vi strukturer programmene våre på i elm. Arkitekturen består av 3 elementer, en modell, et view og en update-funksjon. Dette vil virke kjent for dere som har brukt redux i javascript, for Elm var faktisk en viktig innflytelse på Dan Abramov som lagde Redux.
+<!--  Elm-arkitekturen er måten vi strukturer programmene våre på i elm. Arkitekturen består av 3 elementer, en modell, et view og en update-funksjon. Dette vil virke kjent for dere som har brukt redux i javascript, for Elm var faktisk en viktig innflytelse på Dan Abramov som lagde Redux. -->
 
 ---
 
@@ -939,41 +924,21 @@ sirkelAreal r =
 
 ---
 
-![fit](./images/the-elm-architecture/1-model.pdf)
+![fit](./images/the-elm-architecture/simplified.png)
 
-^ Model: tilstanden til programmet
+<!--  Model: tilstanden til programmet -->
 
-^ Modellen inneholder all data vi har i programmet, og er det eneste stedet den dataen lever
+<!--  Modellen inneholder all data vi har i programmet, og er det eneste stedet den dataen lever -->
 
----
+<!--  View: en funksjon som tar modellen som argument og lager et brukergrensesnitt basert på det -->
 
-![fit](./images/the-elm-architecture/2-view.pdf)
+<!--  Update: en funksjon som tar imot beskjeder OG en modell, og returnerer en ny modell -->
 
-^ View: en funksjon som tar modellen som argument og lager et brukergrensesnitt basert på det
-
----
-
-![fit](./images/the-elm-architecture/3-update.pdf)
-
-^ Update: en funksjon som tar imot beskjeder OG en modell, og returnerer en ny modell
+<!--  Starter med en modell som lager et view, view sender beskjeder (f.eks. ved at brukeren trykker på en knapp), og update tar imot beskjeden og lager en ny modell, som igjen oppdaterer viewet, som kan sende beskjeder, og sånn går det, i en evig rund-dans -->
 
 ---
 
-![fit](./images/the-elm-architecture/4-simplified.pdf)
-
-^ Starter med en modell som lager et view, view sender beskjeder (f.eks. ved at brukeren trykker på en knapp), og update tar imot beskjeden og lager en ny modell, som igjen oppdaterer viewet, som kan sende beskjeder, og sånn går det, i en evig rund-dans
-
----
-
-![fit](images/the-elm-architecture/5-side-effekter.pdf)
-
----
-
-![fit](images/the-elm-architecture/6-elm-runtime.pdf)
-
----
-
-![fit](images/the-elm-architecture/7-full.pdf)
+![fit](images/the-elm-architecture/full.png)
 
 ---
 
@@ -990,27 +955,27 @@ update : Msg -> Model -> Model
 
 ```
 
-^ Her er signaturene til de forskjellige elementene til elm-arkitekturen
+<!--  Her er signaturene til de forskjellige elementene til elm-arkitekturen -->
 
-^ Vi har et typealias `Model` som vi definerer selv, og custom typen Msg som vi også definerer selv
+<!--  Vi har et typealias `Model` som vi definerer selv, og custom typen Msg som vi også definerer selv -->
 
-^ Så har vi de to funksjonene, `view` som tar modellen som argument og returnerer Html. Og der ser vi også at det står Html Msg, fordi vi definerer at Html’en vår kan sende Msg-typen.
+<!--  Så har vi de to funksjonene, `view` som tar modellen som argument og returnerer Html. Og der ser vi også at det står Html Msg, fordi vi definerer at Html’en vår kan sende Msg-typen. -->
 
-^ Til slutt har vi update funksjonen som tar to argumenter: `Msg`-typen vi har definert, og modellen vi har definert, og så returnerer funksjonen en ny modell
+<!--  Til slutt har vi update funksjonen som tar to argumenter: `Msg`-typen vi har definert, og modellen vi har definert, og så returnerer funksjonen en ny modell -->
 
-^ Det virker kanskje litt rart at update har piler mellom argumentene også, i stedet for f.eks. komma, men det gir faktisk veldig mening, selv om vi ikke har tid til å forklare hvorfor i dag.
+<!--  Det virker kanskje litt rart at update har piler mellom argumentene også, i stedet for f.eks. komma, men det gir faktisk veldig mening, selv om vi ikke har tid til å forklare hvorfor i dag. -->
 
 ---
 
 ![fit](webapp.png)
 
-^Vi skal se på en liten eksempelapplikasjon som viser et tall og to knapper for å øke eller redusere verdien.
+<!-- Vi skal se på en liten eksempelapplikasjon som viser et tall og to knapper for å øke eller redusere verdien. -->
 
 ---
 
 # Browser.sandbox
 
-[.column]
+
 
 ```elm
 main =
@@ -1025,7 +990,7 @@ main =
 - Browser.document: Som element, men gir kontroll over <title> og <body>
 - Browser.application: Lager en applikasjon som håndterer URL-endringer (routing)
 
-^Utgangspunktet for enhver Elm-applikasjon er en av Browser-funksjonene. "sandbox" er den enkleste varianten, som vi bruker i dette eksempelet. Denne lever sitt helt eget liv og kan ikke kommunisere med omverdenen på noen måte (ingen HTTP, klokke, osv). Ellers har man element, document og application. Hos SVV bruker vi mest "element" som vi laster inn og starter opp i en eksisterende nettside som er satt opp i CMS-et.
+<!-- Utgangspunktet for enhver Elm-applikasjon er en av Browser-funksjonene. "sandbox" er den enkleste varianten, som vi bruker i dette eksempelet. Denne lever sitt helt eget liv og kan ikke kommunisere med omverdenen på noen måte (ingen HTTP, klokke, osv). Ellers har man element, document og application. Hos SVV bruker vi mest "element" som vi laster inn og starter opp i en eksisterende nettside som er satt opp i CMS-et. -->
 
 ---
 
@@ -1081,23 +1046,6 @@ update msg model =
 
 ---
 
-# Lykke til!
-
----
-
-# Elm Workshop
-
-### Dag 2
-
----
-
-# Plan for dagen
-
-* Mer om Elm
-* Http-requests
-
----
-
 # Maybe
 
 ```elm
@@ -1112,7 +1060,7 @@ type alias Spill =
   }
 ```
 
-^Elms svar på optional-verdier(?). Bibliotek som er en del av elm/core. Representerer verdier som kan eksistere eller ikke eksistere.
+<!-- Elms svar på optional-verdier(?). Bibliotek som er en del av elm/core. Representerer verdier som kan eksistere eller ikke eksistere. -->
 
 ---
 
@@ -1129,20 +1077,20 @@ visPersonligRekord spill =
       "Ingen personlig rekord"
 ```
 
-^Kan brukes for å fortelle om noe har gått galt, men forteller ikke hvorfor.
+<!-- Kan brukes for å fortelle om noe har gått galt, men forteller ikke hvorfor. -->
 
 ---
 
 # Result
 
-[.column]
+
 ```elm
 type Result error value
   = Err error
   | Ok value
 ```
 
-[.column]
+
 ```elm
 isReasonableAge : Int -> Result String Int
 isReasonableAge age =
@@ -1160,7 +1108,7 @@ isReasonableAge age =
 
 # Result
 
-[.column]
+
 ```elm
 type Result error value
   = Err error
@@ -1173,7 +1121,7 @@ type AgeError
 
 ```
 
-[.column]
+
 ```elm
 toReasonableAge : Int -> Result AgeError Int
 toReasonableAge age =
@@ -1187,7 +1135,7 @@ toReasonableAge age =
     Ok age
 ```
 
-^Når vi nå skal sjekke på denne feilen passer kompilatoren på at man tar høyde for alle caser.
+<!-- Når vi nå skal sjekke på denne feilen passer kompilatoren på at man tar høyde for alle caser. -->
 
 ---
 
@@ -1206,7 +1154,7 @@ viewAge ageResult =
 	Err TooYoung ->
 	  "Please try again after you are born."
 ```
-^Mapping
+<!-- Mapping -->
 
 ---
 
@@ -1222,7 +1170,7 @@ visPersonligRekord spill =
     |> Maybe.withDefault "Ingen personlig rekord"
 
 ```
-^Mapping
+<!-- Mapping -->
 
 ---
 
@@ -1236,7 +1184,7 @@ Result.map : (a -> b) -> Result x a -> Result x b
 List.map : (a -> b) -> List a -> List b
 
 ```
-^Mapping
+<!-- Mapping -->
 
 ---
 
@@ -1249,7 +1197,7 @@ List.map : (a -> b) -> List a -> List b
 
 # Json-dekoding
 
-[.column]
+
 ```elm
 import Json.Decode exposing 
 	( Decoder
@@ -1271,7 +1219,7 @@ nameDecoder =
 
 -- string : Decoder String
 ```
-[.column]
+
 ```json
 {
     "name": "Tom",
@@ -1317,7 +1265,7 @@ Decode.map2 : (a -> b -> value) -> Decoder a -> Decoder b -> Decoder value
 ---
 # Json-dekoding
 
-[.column]
+
 ```elm
 -- Person : String -> Int -> Person
 type alias Person =
@@ -1339,7 +1287,7 @@ personDecoder =
 
 # Json-dekoding
 
-[.column]
+
 ```elm
 -- Person : String -> Int -> Person
 type alias Person =
@@ -1384,9 +1332,9 @@ personDecoder =
         |> optional "name" string ""
 ```
 
-^Innebygd decoding-funksjonalitet (som Decode.map2 osv) fungerer bra for veldig enkle datasett.
+<!-- Innebygd decoding-funksjonalitet (som Decode.map2 osv) fungerer bra for veldig enkle datasett. -->
 
-^Json.Decode.Pipeline anbefales. Kan bruke piping for å bygge JSON decodere og har mange nyttige hjelpefunksjoner.
+<!-- Json.Decode.Pipeline anbefales. Kan bruke piping for å bygge JSON decodere og har mange nyttige hjelpefunksjoner. -->
 
 ---
 # Json-dekoding
@@ -1439,7 +1387,7 @@ andThen : (a -> Decoder b) -> Decoder a -> Decoder b
 andThen : (a -> Decoder b) -> Decoder a -> Decoder b
 ```
 
-[.column]
+
 ```elm
 type alias Person =
   { name : String
@@ -1452,7 +1400,7 @@ versionedPersonDecoder =
     |> Decode.andThen personDecoder
 ```
 
-[.column]
+
 ```elm
 personDecoder : Int -> Decoder Person
 personDecoder version =
@@ -1489,14 +1437,4 @@ getPerson =
     , expect = Http.expectJson versionedPersonDecoder GotPerson
     }
 ```
-^Hvis decoding feiler får man Http.BadBody
-
----
-
-# Elm hos SVV
-
-- Private moduler
-- Komponentkassen
-- Tekstapp Elm
-
-^Show and tell fra eksisterende apper 
+<!-- Hvis decoding feiler får man Http.BadBody -->
