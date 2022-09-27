@@ -720,7 +720,7 @@ view =
 # Din tur
 
 ```bash
-https://gauteab.github.io/elm-workshop-memory
+https://mbolstad.github.io/elm-workshop-memory
 ```
 
 <!-- Si fra hvis du blir ferdig med nivå 3. -->
@@ -730,9 +730,6 @@ https://gauteab.github.io/elm-workshop-memory
 
 # Elm Workshop
 
-## Dag 1
-
-### Del 2
 
 ---
 
