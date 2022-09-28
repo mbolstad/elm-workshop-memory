@@ -13,14 +13,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ewendel/elm-workshop.git"
+    "url": "git+https://github.com/mbolstad/elm-workshop.git"
   },
-  "author": "Erik Wendel, Ingar Almklov",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ewendel/elm-workshop/issues"
+    "url": "https://github.com/mbolstad/elm-workshop/issues"
   },
-  "homepage": "https://github.com/ewendel/elm-workshop#readme",
+  "homepage": "https://github.com/mbolstad/elm-workshop#readme",
   "dependencies": {
     "elm": "^0.19.1-5",
     "elm-format": "^0.8.5",
