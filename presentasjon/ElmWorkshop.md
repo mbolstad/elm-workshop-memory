@@ -1,7 +1,7 @@
 ---
 marp: true
 ---
-![right w:400](./images/elm-logo.png)
+![bg right w:400](./images/elm-logo.png)
 
 
 # Elm
