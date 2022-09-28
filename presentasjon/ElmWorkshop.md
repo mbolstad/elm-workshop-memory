@@ -1,11 +1,15 @@
 ---
 marp: true
 ---
+![right w:400](./images/elm-logo.png)
+
 
 # Elm
- 
+
 ### *A delightful language*
+
 ### *for reliable webapps*
+
 
 
 ---
@@ -15,9 +19,6 @@ marp: true
 * Intro/presentasjon til Elm
 * Lunsj
 * Lage spill workshop
-
-
-
 
 ---
 
@@ -50,11 +51,11 @@ marp: true
 
 # Du kan ikke gjøre nettverkskall hvor og når du vil
 
-<!-- Det er et sterkt skille mellom kode som kan/ikke kan gjøre sideeffekte. Dette komm vi tilbake til når vi skal snakke om Elm-arkitekturen. -->
+<!-- Det er et sterkt skille mellom kode som kan/ikke kan gjøre sideeffekter. Dette komm vi tilbake til når vi skal snakke om Elm-arkitekturen. -->
 
 ---
 
-## Mye lettere å forstå hva koden faktisk gjør
+# Mye lettere å forstå hva koden faktisk gjør
 
 <!-- Siden resultatet av en funksjon kun er basert på input til funksjonen er det lett å forstå hva som skjer. Av samme grunn er det enklere å skrive tester. -->
 
@@ -63,9 +64,6 @@ marp: true
 # Typesikkerhet og rubusthet
 
 <!-- Elm har et sterkere typesystem enn mange andre språk. For eksempel ingen støtte for casting, som man kan i TS & co. -->
-
-<!--  "75 % av frontend-bugs i Jira er feil som ikke kan skje med Elm" (Aksel) -->
-
 ---
 
 # Stabilt språk
@@ -74,7 +72,7 @@ marp: true
 
 ---
 
-## Enkelt å refaktorere, enkelt å vedlikeholde
+# Enkelt å refaktorere, enkelt å vedlikeholde
 
 ---
 
@@ -84,6 +82,7 @@ Innebygget time traveling debugger
 
 <!-- (vis demo i UTV/kjøretøy) -->
 ---
+
 # Syntax
 
 ---
@@ -99,6 +98,7 @@ volum = 11
 // JavaScript:
 const volum = 11;
 ```
+
 <!-- Alle verdier er immutable. Ikke noe behov for et keyword foran (const, var). Alle variabler har samme scoping-regler til forksjell fra JS. -->
 
 ---
@@ -119,7 +119,6 @@ detErHelg = False
 
 # Funksjoner
 
-
 ```elm
 -- Elm:
 increment x =
@@ -128,21 +127,23 @@ increment x =
 four = increment 3
 ```
 
-
 ```javascript
 // JavaScript:
 function increment(x) {
     return x + 1;
 };
-    
+
 const four = increment(3);
 ```
+
 <!--  Her ser vi at vi binder resultatet av å kalle increment med argumentet 3, til navnet four -->
 
 <!--  Heller ikke når man kaller funksjoner i Elm behøver man parenteser rundt argumenter. Man bare skriver navnet på funksjonen så argumentene -->
 
 ---
+
 # Funksjoner & typeinferens
+
 ```elm
 -- Elm:
 increment x =
@@ -156,7 +157,7 @@ five = increment (increment 3)
 function increment(x) {
     return x + 1;
 };
-    
+
 const five = increment(increment(3));
 ```
 
@@ -176,7 +177,6 @@ const five = increment(increment(3));
 
 # Funksjoner & typeinferens
 
-
 ```elm
 
 -- Elm:
@@ -186,14 +186,13 @@ increment x =
 five = increment (increment 3)
 ```
 
-
 ```javascript
 // JavaScript:
 function increment(x) {
     return x + 1;
 };
-    
-const five  = increment(increment(3));
+
+const five = increment(increment(3));
 ```
 
 <!--  Så i dette tilfellet er det sånn her vi må kalle funksjonene -->
@@ -223,7 +222,6 @@ const five  = increment(increment(3));
 
 # Funksjoner & typeinferens
 
-
 ```elm
 -- Elm:
 increment x =
@@ -232,13 +230,12 @@ increment x =
 five = increment (increment 3)
 ```
 
-
 ```javascript
 // JavaScript:
 function increment(x) {
     return x + 1;
 };
-    
+
 const five = increment(increment(3));
 ```
 
@@ -254,7 +251,6 @@ const five = increment(increment(3));
 
 # Lambda
 
-
 ```elm
 -- Elm
 increment x =
@@ -263,17 +259,14 @@ increment x =
 increment = \x -> x + 1
 ```
 
-
 ```js
 // JavaScript:
 function increment(x) {
-  return x + 1;
+    return x + 1;
 }
 
 const increment = (x) => x + 1;
 ```
-
-
 
 ---
 
@@ -297,7 +290,6 @@ detErHelg = False
 
 # Typesignaturer
 
-
 ```elm
 increment : Int -> Int
 increment x =
@@ -306,7 +298,6 @@ increment x =
 five : Int    
 five = increment (increment 3)
 ```
-
 
 <!--  Men som oftest så har vi lyst til å legge på typesignaturer, og det gjør vi på denne måten. -->
 
@@ -353,7 +344,6 @@ person = ( "Robin", 30, False )
 
 # Records
 
-
 ```elm
 -- Elm:
 kunde = 
@@ -361,7 +351,6 @@ kunde =
     , alder = 31
     }
 ```
-
 
 ```javascript
 // JavaScript:
@@ -544,13 +533,12 @@ kunde =
 <!--  Men vi har jo fortsatt studentRabatten, selv om det ikke er noen studentkunde, fordi studentRabatt er definert i typealiaset vårt. -->
 
 ---
-# Tre problemer:
 
+# Tre problemer:
 
 _1. Vi får tomme felter med_ dummy-_verdier_
 _2. Enkelt å skrive feil i `avtale`-feltet_
 _3. Ikke noe hjelp fra kompilatoren_
-
 
 ```elm
   { navn = "Aksel"
@@ -560,7 +548,6 @@ _3. Ikke noe hjelp fra kompilatoren_
   , bedriftsnavn = "Statens Vegvesen"
   }
 ```
-
 
 <!--  1, 2, 3 -->
 
@@ -620,9 +607,7 @@ getRabatt avtale =
             0
 ```
 
-
-#### **Glemt en branch? kompilatoren sier fra!**
-
+#### **Glemt en branch? Kompilatoren sier fra!**
 
 <!-- Når vi ønsker å håndtere de ulike tilfellene vi har definert at en custom type kan ha, bruker vi det som heter pattern matching. 
 Likner litt på en switch, som man finner i blant annet java, c# og javascript, men hjelper oss mye mer. For her må vi håndtere alle tilfeller, det holder ikke å bare plukke ut de vi tror vi trenger å håndtere.-->
@@ -645,15 +630,16 @@ getRabatt avtale =
             0
 ```
 
-#### **Glemt en branch? kompilatoren sier ikke fra! :(**
+#### **Glemt en branch? Kompilatoren sier ikke fra! :disappointed:**
 
 ---
 
 # HTML
 
 ```html
+
 <div>
-    <img src="/image.png" />
+    <img src="/image.png"/>
     <h1>Min elm-app!</h1>
 </div>
 ```
@@ -669,8 +655,9 @@ getRabatt avtale =
 # HTML
 
 ```html
+
 <div>
-    <img src="/image.png" />
+    <img src="/image.png"/>
     <h1>Min elm-app!</h1>
 </div>
 ```
@@ -698,6 +685,7 @@ view =
     , h1 [] [ text "Min elm-app!" ]
     ]
 ```
+
 <!-- Html-typen tar egentlig inn et ekstra type-parameter (a). Dette er meldingstypen vi forventer å få når brukeren interagerer med viewet. -->
 
 ---
@@ -730,16 +718,14 @@ https://mbolstad.github.io/elm-workshop-memory
 
 # Elm Workshop
 
-
 ---
 
-## Funksjonell programmering
+# Funksjonell programmering
 
 * Funksjoner er førsteklasses borgere
 * Høyereordens funksjoner
 * Immutable datastrukturer
 * Rene funksjoner (ingen side-effekter)
-
 
 <!--  Rene funksjoner: ingen side-effekter, kalles kun for returverdien, kall på funksjon med samme argumenter gir samme resultat hver gang (Man behøver ikke tenke på timing) -->
 
@@ -779,6 +765,7 @@ greeting =
   concat "Hello "
 
 ```
+
 <!-- Hvis vi bruker denne funksjonen, men kun oppgir ett argument ("partially applied"), får vi naturlig nok ingen ny String, men i stedet får vi en helt ny funksjon som forventer en String, og returnerer en String.  -->
 
 ---
@@ -796,6 +783,7 @@ greeting =
   concat "Hello "
 
 ```
+
 <!-- Slenger på type-signatur for å tydeliggjøre hva vi får. -->
 
 ---
@@ -813,6 +801,7 @@ greeting name =
   concat "Hello " name
 
 ```
+
 <!-- Kunne også vært skrevet sånn, men det trenger vi ikke. -->
 
 ---
@@ -839,9 +828,9 @@ greeting "World" == "Hello World"
 
 ```js
 function concat(a) {
-  return function(b) {
-    return a + b;
-  }
+    return function (b) {
+        return a + b;
+    }
 }
 
 
@@ -852,11 +841,12 @@ const greeting = greeting("Hello ");
 greeting("World") == "Hello World";
 greeting("Kitty") == "Hello Kitty";
 ```
+
 <!-- Eksempel på currying i JS. Den kompilerte koden ser omtrent sånn ut (før optimizations) -->
 
 ---
 
-# Partial Application
+# Partial application
 
 ```elm
 List.map greeting [ "Gaute", "Even", "Aksel" ] == [ "Hello Gaute", "Hello Even", "Hello Aksel" ]
@@ -899,19 +889,15 @@ myString =
 ```elm
 sirkelAreal r =
     let
-    	pi =
-    		3.14
-
-		r2 = 
-			r * r
+        pi = 3.14
+        r2 = r * r
     in
-    pi * r2
+        pi * r2
 ```
 
 ---
-# _**Elm Architecture**_
 
-<!--   Det siste vi skal snakke om før vi skal live-kode er The Elm Architecture. -->
+# _**Elm Architecture**_
 
 <!--  Elm-arkitekturen er måten vi strukturer programmene våre på i elm. Arkitekturen består av 3 elementer, en modell, et view og en update-funksjon. Dette vil virke kjent for dere som har brukt redux i javascript, for Elm var faktisk en viktig innflytelse på Dan Abramov som lagde Redux. -->
 
@@ -972,8 +958,6 @@ update : Msg -> Model -> Model
 
 # Browser.sandbox
 
-
-
 ```elm
 main =
   Browser.sandbox
@@ -1024,6 +1008,7 @@ view model =
 ![right, fit](webapp.png)
 
 --- 
+
 # Update
 
 ```elm
@@ -1080,13 +1065,11 @@ visPersonligRekord spill =
 
 # Result
 
-
 ```elm
 type Result error value
   = Err error
   | Ok value
 ```
-
 
 ```elm
 isReasonableAge : Int -> Result String Int
@@ -1105,19 +1088,15 @@ isReasonableAge age =
 
 # Result
 
-
 ```elm
 type Result error value
   = Err error
   | Ok value
 
-
 type AgeError 
   = TooYoung 
   | TooOld
-
 ```
-
 
 ```elm
 toReasonableAge : Int -> Result AgeError Int
@@ -1151,6 +1130,7 @@ viewAge ageResult =
 	Err TooYoung ->
 	  "Please try again after you are born."
 ```
+
 <!-- Mapping -->
 
 ---
@@ -1167,6 +1147,7 @@ visPersonligRekord spill =
     |> Maybe.withDefault "Ingen personlig rekord"
 
 ```
+
 <!-- Mapping -->
 
 ---
@@ -1181,6 +1162,7 @@ Result.map : (a -> b) -> Result x a -> Result x b
 List.map : (a -> b) -> List a -> List b
 
 ```
+
 <!-- Mapping -->
 
 ---
@@ -1193,7 +1175,6 @@ List.map : (a -> b) -> List a -> List b
 ---
 
 # Json-dekoding
-
 
 ```elm
 import Json.Decode exposing 
@@ -1218,13 +1199,11 @@ nameDecoder =
 ```
 
 ```json
-{
-    "name": "Tom",
-    "age": 42
-}
+{ "name": "Tom", "age": 42 }
 ```
 
 ---
+
 # Json-dekoding
 
 ```elm
@@ -1260,8 +1239,8 @@ Decode.map2 : (a -> b -> value) -> Decoder a -> Decoder b -> Decoder value
 ```
 
 ---
-# Json-dekoding
 
+# Json-dekoding
 
 ```elm
 -- Person : String -> Int -> Person
@@ -1283,7 +1262,6 @@ personDecoder =
 ---
 
 # Json-dekoding
-
 
 ```elm
 -- Person : String -> Int -> Person
@@ -1312,8 +1290,6 @@ NoRedInk/elm-json-decode-pipeline
 
 # Json-dekoding
 
-
-
 ```elm
 type alias Person =
   { name : String
@@ -1334,6 +1310,7 @@ personDecoder =
 <!-- Json.Decode.Pipeline anbefales. Kan bruke piping for å bygge JSON decodere og har mange nyttige hjelpefunksjoner. -->
 
 ---
+
 # Json-dekoding
 
 ```elm
@@ -1357,19 +1334,20 @@ personDecoder =
 
 ```json
 {
-    "version": 1,
-    "name": "Tom",
-    "phone": 99112233
+  "version": 1,
+  "name": "Tom",
+  "phone": 99112233
 }
 
 {
-    "version": 2,
-    "name": "Tom",
-    "phone": "+47 99112233"
+  "version": 2,
+  "name": "Tom",
+  "phone": "+47 99112233"
 }
 ```
 
 ---
+
 # Json-dekoding
 
 ```elm
@@ -1383,7 +1361,6 @@ andThen : (a -> Decoder b) -> Decoder a -> Decoder b
 ```elm
 andThen : (a -> Decoder b) -> Decoder a -> Decoder b
 ```
-
 
 ```elm
 type alias Person =
@@ -1396,7 +1373,6 @@ versionedPersonDecoder =
   field "version" int
     |> Decode.andThen personDecoder
 ```
-
 
 ```elm
 personDecoder : Int -> Decoder Person
@@ -1434,4 +1410,5 @@ getPerson =
     , expect = Http.expectJson versionedPersonDecoder GotPerson
     }
 ```
+
 <!-- Hvis decoding feiler får man Http.BadBody -->
